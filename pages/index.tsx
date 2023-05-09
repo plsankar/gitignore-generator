@@ -2,6 +2,8 @@ import GitignoreRender from "@/components/GitignoreRender";
 import Header from "@/components/Header";
 import TemplatesControl from "@/components/TemplatesControl";
 import { useTemplates } from "@/contexts/TemplatesProvider";
+import { Transition } from "@headlessui/react";
+import { Fragment } from "react";
 
 export default function Home() {
     const { selected } = useTemplates();
@@ -18,7 +20,21 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <div className="flex-grow w-full md:w-1/5 xl:min-w-[600px] lg:min-w-[500px] md:min-w-[450px] md:flex-grow-0 sm:flex-grow bg-slate-100 overflow-scroll">
+
+            <div className="flex-grow w-full md:w-1/5 xl:min-w-[600px] lg:min-w-[500px] md:min-w-[450px] md:flex-grow-0 sm:flex-grow overflow-scroll relative">
+                <Transition
+                    as={Fragment}
+                    show={selected.length > 0}
+                    appear={true}
+                    enter="transform transition duration-[200ms]"
+                    enterFrom="translate-x-full"
+                    enterTo="translate-x-0"
+                    leave="transform duration-200 transition ease-in-out"
+                    leaveFrom="translate-x-0"
+                    leaveTo="translate-x-full"
+                >
+                    <div className="absolute inset-0 z-10 w-full h-full bg-slate-100"></div>
+                </Transition>
                 <GitignoreRender selected={selected} />
             </div>
         </div>

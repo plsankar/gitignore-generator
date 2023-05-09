@@ -8,7 +8,7 @@ import { Transition } from "@headlessui/react";
 import { SelectOption } from "./types";
 
 const GitignoreRender: FC<{ selected: SelectOption[] }> = ({ selected }) => {
-    const { data, error } = useSWR<GitignoreEndpointResponse>(
+    const { data, error, isLoading } = useSWR<GitignoreEndpointResponse>(
         selected.length > 0
             ? `/api/gen?templates=${selected
                   .map((item) => item.value)
@@ -29,7 +29,7 @@ const GitignoreRender: FC<{ selected: SelectOption[] }> = ({ selected }) => {
     }
 
     return (
-        <div className="relative h-full max-h-full overflow-scroll md:max-h-screen">
+        <div className="relative z-20 h-full max-h-full overflow-scroll md:max-h-screen">
             <Transition
                 as={Fragment}
                 show={selected.length > 0}
